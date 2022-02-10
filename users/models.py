@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class UserModel(models.Model):
     GENDER = (
@@ -8,11 +9,8 @@ class UserModel(models.Model):
     )
     user_name = models.CharField(max_length=100)
     email = models.EmailField(blank=False, null=False)
-    edad = models.DecimalField(max_digits=2, decimal_places=0)
-    gender = models.CharField(
-        max_length=6,
-        choices=GENDER,
-    )
+    age = models.DecimalField(max_digits=2, decimal_places=0, validators=[MinValueValidator(0)])
+    gender = models.CharField( max_length=6, choices=GENDER)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
